@@ -3,14 +3,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Features
 
 List of Five(Add, Edit, Delete)
-Buttons than generate random information
--> Random Wiki link from external wikimedia api
--> Random news headline from external newsApi
--> Random topic
--> Random word from a random word generating external api
--> Random name from an external data generating api
--> Random age group
--> Random selection of Who, What, When, Where, Why or How
+
+Buttons than generate random information<br />
+-> Random Wiki link from external wikimedia api<br />
+-> Random news headline from external newsApi<br />
+-> Random topic<br />
+-> Random word from a random word generating external api<br />
+-> Random name from an external data generating api<br />
+-> Random age group<br />
+-> Random selection of Who, What, When, Where, Why or How<br />
 -> Magic 8-ball with 20 possible sayings in an array for now
 
 Layout uses styled-components
