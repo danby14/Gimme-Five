@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
-// require('dotenv/config');
+require('dotenv/config');
 // const cors = require('cors');
 const port = 5000;
 
+// var Datastore = require('nedb'),
+//   db = new Datastore({ filename: 'neDB/newsHeadlines', autoload: true });
+
 //Middlewares
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 // app.use(
 //   cors({
 //     origin: 'http://localhost:3000',
@@ -20,7 +23,6 @@ const testRoute = require('./routes/test');
 
 //Route Middlewares
 // app.use('/user', authRoute);
-// app.use('/refresh_token', cookieParser());
 app.use('/tester', testRoute);
 app.use('/test2', (req, res) => {
   res.send('got to test 2');
