@@ -1,15 +1,19 @@
 const express = require('express');
 const app = express();
 require('dotenv/config');
-// const cors = require('cors');
+const cors = require('cors');
+const { headlines, randWords, test2 } = require('./cron/cron');
 const port = 5000;
 
-// var Datastore = require('nedb'),
-//   db = new Datastore({ filename: 'neDB/newsHeadlines', autoload: true });
+// cron jobs
+headlines;
+randWords;
+test2;
 
 //Middlewares
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: 'http://localhost:3000',
@@ -19,13 +23,13 @@ const port = 5000;
 // );
 
 //Import Routes
-const testRoute = require('./routes/test');
+const randomRoute = require('./routes/random');
 
 //Route Middlewares
 // app.use('/user', authRoute);
-app.use('/tester', testRoute);
-app.use('/test2', (req, res) => {
-  res.send('got to test 2');
+app.use('/random', randomRoute);
+app.use('/test', (req, res) => {
+  res.send('got to test 1');
 });
 
 //ROUTES

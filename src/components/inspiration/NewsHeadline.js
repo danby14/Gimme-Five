@@ -5,21 +5,13 @@ import { Inspiration, InfoBox, RandomButton } from '../styled/InspirationStyles'
 const NewsHeadline = ({ add, subtract }) => {
   const [newsHeadline, setNewsHeadline] = useState('');
   const [showNewsHeadline, setShowNewsHeadline] = useState('');
-  const NEWS_TEST = process.env.REACT_APP_NEWS_KEY;
 
   const handleSubmit = async () => {
-    function randomNum(min, max) {
-      return Math.floor(Math.random() * (max - min) + min);
-    }
-    let randomIdx = randomNum(0, 20);
     try {
-      let response = await fetch(
-        `http://newsapi.org/v2/top-headlines?country=us&apiKey=${NEWS_TEST}`
-      );
-      let data = await response.json();
+      let response = await fetch(`http://localhost:5000/random/headline`);
+      let data = await response.text();
       if (!response.ok) throw response.statusText;
-      console.log('data', data);
-      setNewsHeadline(data.articles[randomIdx].title);
+      setNewsHeadline(data);
       setShowNewsHeadline(true);
     } catch (e) {
       console.error(e);

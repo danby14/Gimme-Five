@@ -7,10 +7,11 @@ const RandomWord = ({ add, subtract }) => {
   const [showRandomWord, setShowRandomWord] = useState('');
   const handleSubmit = async () => {
     try {
-      let response = await fetch(`https://random-word-api.herokuapp.com/word?number=1`);
-      let data = await response.json();
+      let response = await fetch(`http://localhost:5000/random/word`);
+      let data = await response.text();
       if (!response.ok) throw response.statusText;
-      setRandomWord(data[0]);
+      if (!response.ok) throw response.statusText;
+      setRandomWord(data);
       setShowRandomWord(true);
     } catch (e) {
       console.error(e);
