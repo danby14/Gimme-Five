@@ -7,7 +7,8 @@ const RandomWord = ({ add, subtract }) => {
   const [showRandomWord, setShowRandomWord] = useState('');
   const handleSubmit = async () => {
     try {
-      let response = await fetch(`http://localhost:5000/random/word`);
+      // let response = await fetch(`http://localhost:5000/random/word`);
+      let response = await fetch(`https://five.danby.me/random/word`);
       let data = await response.text();
       if (!response.ok) throw response.statusText;
       if (!response.ok) throw response.statusText;

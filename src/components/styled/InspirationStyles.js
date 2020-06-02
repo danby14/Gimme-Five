@@ -66,7 +66,8 @@ export const InfoBox = ({ children }) => {
 const SimpleFlex = styled.div`
   display: flex;
   justify-content: center;
-  background-color: buttonface;
+  /* background-color: buttonface; */
+  background-color: #efefef;
   align-items: flex-end;
 `;
 

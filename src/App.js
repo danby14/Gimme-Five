@@ -9,7 +9,7 @@ import {
   MainContainer,
   MainHeading,
   RowOfButtons,
-} from './components/styled/AppSyles';
+} from './components/styled/AppStyles';
 
 function App() {
   function handleClick() {
@@ -34,8 +34,8 @@ function App() {
               <ListOfFive />
               <RowOfButtons>
                 <IdeaGenerators startCount={0} />
+                <IdeaGenerators startCount={1} />
                 <IdeaGenerators startCount={3} />
-                <IdeaGenerators startCount={7} />
               </RowOfButtons>
             </MainContainer>
           </Col>

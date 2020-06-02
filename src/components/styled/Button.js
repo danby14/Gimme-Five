@@ -21,13 +21,19 @@ const SubmitButton = styled(BasicButton)`
   height: auto;
   width: auto;
   font-family: sanchez;
-  background-color: buttonface;
+  /* background-color: buttonface; */
+  background-color: ${({ bgColor }) => bgColor || '#efefef'};
+  color: ${({ color }) => color || ''};
 `;
 
 export const Button = ({ children, onClick }) => {
   return <BasicButton onClick={onClick}>{children}</BasicButton>;
 };
 
-export const Button2 = ({ children, onClick }) => {
-  return <SubmitButton onClick={onClick}>{children}</SubmitButton>;
+export const Button2 = ({ children, onClick, bgColor, color }) => {
+  return (
+    <SubmitButton onClick={onClick} bgColor={bgColor} color={color}>
+      {children}
+    </SubmitButton>
+  );
 };

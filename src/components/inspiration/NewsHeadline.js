@@ -8,7 +8,8 @@ const NewsHeadline = ({ add, subtract }) => {
 
   const handleSubmit = async () => {
     try {
-      let response = await fetch(`http://localhost:5000/random/headline`);
+      // let response = await fetch(`http://localhost:5000/random/headline`);
+      let response = await fetch(`https://five.danby.me/random/headline`);
       let data = await response.text();
       if (!response.ok) throw response.statusText;
       setNewsHeadline(data);

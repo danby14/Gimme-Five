@@ -20,7 +20,7 @@ export const Navbar = styled.div`
   width: 100%;
   padding: 0.875rem 1.5rem;
   justify-content: space-between;
-  z-index: 1000;
+  /* z-index: 1000; */
 
   @media (min-width: 992px) {
     min-width: 264px;
