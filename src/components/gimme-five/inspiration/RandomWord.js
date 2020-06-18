@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CloseO } from '../styled/CloseO';
-import { Inspiration, InfoBox, RandomButton } from '../styled/InspirationStyles';
+import { CloseO } from '../../styled/CloseO';
+import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const RandomWord = ({ add, subtract }) => {
   const [randomWord, setRandomWord] = useState('');
@@ -10,7 +10,6 @@ const RandomWord = ({ add, subtract }) => {
       // let response = await fetch(`http://localhost:5000/random/word`);
       let response = await fetch(`https://five.danby.me/random/word`);
       let data = await response.text();
-      if (!response.ok) throw response.statusText;
       if (!response.ok) throw response.statusText;
       setRandomWord(data);
       setShowRandomWord(true);

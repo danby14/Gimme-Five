@@ -1,0 +1,89 @@
+import React, { useState, useContext } from 'react';
+import styled from 'styled-components/macro';
+import { AuthContext } from '../context/auth-context';
+import { useForm } from 'react-hook-form';
+import Modal from '../shared/Modal';
+import { Button2 } from '../styled/Button';
+
+const AddCommentContainer = styled.div`
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  button {
+    background: none;
+    border: none;
+    color: blue;
+    font-size: 0.95rem;
+  }
+  textarea {
+    width: 100%;
+  }
+`;
+
+const AddComment = ({ listId, update }) => {
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { register, handleSubmit, errors } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const onSubmit = async data => {
+    data.commentor_id = auth.userId;
+    setIsLoading(true);
+    try {
+      let response = await fetch(
+        `http://localhost:5000/comments/post/${listId}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        },
+        { withCredentials: true }
+      );
+      let userData = await response.json();
+      // console.log(userData, 'it worked');
+      setIsLoading(false);
+      modalViewer();
+      update();
+    } catch (err) {
+      setError(err.response.data);
+      setIsLoading(false);
+    }
+  };
+
+  const modalViewer = () => {
+    setShowModal(!showModal);
+  };
+
+  return (
+    <AddCommentContainer>
+      <Modal
+        show={showModal}
+        header={'Add Comment'}
+        onSubmit={handleSubmit(onSubmit)}
+        footer={
+          <>
+            <Button2 type='submit'>Submit</Button2>
+            <Button2 onClick={modalViewer}>Close</Button2>
+          </>
+        }
+      >
+        <textarea
+          name='comment'
+          type='text'
+          ref={register({
+            required: 'Please Enter a Comment',
+            minLength: { value: 5, message: 'min of 5 characters' },
+          })}
+        />
+        <p>{errors.comment && errors.comment.message}</p>
+      </Modal>
+      {auth.userId && <button onClick={modalViewer}>Add Comment</button>}
+      {!auth.userId && <p>Must be logged in to comment.</p>}
+    </AddCommentContainer>
+  );
+};
+
+export default AddComment;

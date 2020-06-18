@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components/macro';
-import blocky from './assets/blocky.png';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -14,8 +13,8 @@ html {
 }
 
 body {
-  /* background-image: url(${blocky}); */
-  background-color: gainsboro;
+  background-color: #f8f9fa;
+  /* background-color: gainsboro; */
   font-family: 'Sanchez', serif;
   /* font-family: 'Montserrat', sans-serif; */
 }

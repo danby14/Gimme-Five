@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CloseO } from '../styled/CloseO';
-import { Inspiration, InfoBox, RandomButton } from '../styled/InspirationStyles';
+import { CloseO } from '../../styled/CloseO';
+import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const RandomName = ({ add, subtract }) => {
   const [randomName, setRandomName] = useState('');

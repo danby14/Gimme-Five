@@ -13,14 +13,10 @@ export const AppContainer = styled.div`
 export const Navbar = styled.div`
   position: sticky;
   top: 0;
-  display: flex;
-  flex-direction: row;
   background-color: #343a40;
   color: rgb(255, 255, 255, 0.9);
   width: 100%;
   padding: 0.875rem 1.5rem;
-  justify-content: space-between;
-  /* z-index: 1000; */
 
   @media (min-width: 992px) {
     min-width: 264px;
@@ -28,6 +24,8 @@ export const Navbar = styled.div`
     height: 100vh;
     flex-direction: column;
     justify-content: flex-start;
+    /* justify-content: space-evenly; */
+    /* text-align: center; */
     padding: 1.5rem;
   }
 `;
@@ -41,9 +39,11 @@ export const MainContainer = styled.div`
 `;
 
 export const MainHeading = styled.h1`
+  font-size: 2.5rem;
   font-weight: 500;
   padding-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-right: 1.25rem;
+  margin-bottom: 1.25rem;
   letter-spacing: 1.25px;
   cursor: grab;
   user-select: none;

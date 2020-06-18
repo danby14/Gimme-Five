@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../styled/Button';
+import { Button } from '../../styled/Button';
 
 const Scratchpad = () => {
   const [texty, setTexty] = useState('');

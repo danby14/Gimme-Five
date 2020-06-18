@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CloseO } from '../styled/CloseO';
-import { Inspiration, InfoBox, RandomButton } from '../styled/InspirationStyles';
+import { CloseO } from '../../styled/CloseO';
+import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const WhoWhat = ({ add, subtract }) => {
   const options = ['who', 'what', 'why', 'where', 'when', 'how'];

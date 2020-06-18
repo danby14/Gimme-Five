@@ -24,15 +24,16 @@ const SubmitButton = styled(BasicButton)`
   /* background-color: buttonface; */
   background-color: ${({ bgColor }) => bgColor || '#efefef'};
   color: ${({ color }) => color || ''};
+  display: ${prop => (prop.disabled ? 'none' : '')};
 `;
 
 export const Button = ({ children, onClick }) => {
   return <BasicButton onClick={onClick}>{children}</BasicButton>;
 };
 
-export const Button2 = ({ children, onClick, bgColor, color }) => {
+export const Button2 = ({ children, onClick, bgColor, color, disabled }) => {
   return (
-    <SubmitButton onClick={onClick} bgColor={bgColor} color={color}>
+    <SubmitButton onClick={onClick} bgColor={bgColor} color={color} disabled={disabled}>
       {children}
     </SubmitButton>
   );
