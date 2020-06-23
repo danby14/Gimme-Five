@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useLocal } from '../../hooks/useLocal';
+import { useLocal } from '../../hooks/custom';
 
 import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
@@ -79,6 +79,7 @@ const ListOfFive = () => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token,
         },
         body: JSON.stringify(submittedData),
       });
@@ -176,6 +177,7 @@ const ListOfFive = () => {
             type='text'
             required
             minLength='5'
+            maxLength='70'
           />
         </label>
         <ol>

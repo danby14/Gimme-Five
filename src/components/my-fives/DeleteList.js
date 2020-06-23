@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import styled from 'styled-components/macro';
 
 import { Button2 } from '../styled/Button';
+import { Trash } from '../styled/TrashCan';
 import Modal from '../shared/Modal';
+import { AuthContext } from '../context/auth-context';
 
-const RemoveList = ({ list, update }) => {
+const DeleteList = ({ list, update }) => {
   const [showModal, setShowModal] = useState(false);
   const [verifyTitle, setVerifyTitle] = useState('');
   const [reqError, setReqError] = useState(null);
+
+  const auth = useContext(AuthContext);
+
+  const TrashTalk = styled.div`
+    display: inline-block;
+    margin: 0.75rem 0 0.45rem 0;
+    div {
+      display: flex;
+      align-items: baseline;
+      color: red;
+      div {
+        cursor: pointer;
+        margin-left: 1rem;
+      }
+    }
+  `;
 
   const modalViewer = () => {
     setVerifyTitle('');
@@ -18,7 +37,7 @@ const RemoveList = ({ list, update }) => {
     setVerifyTitle(e.target.value);
   }
 
-  const deleteList = async e => {
+  const removeList = async e => {
     e.preventDefault();
     let listId = list.id;
     if (verifyTitle.trim() === list.title.trim()) {
@@ -29,6 +48,7 @@ const RemoveList = ({ list, update }) => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + auth.token,
           },
           body: JSON.stringify(userData),
         });
@@ -53,13 +73,18 @@ const RemoveList = ({ list, update }) => {
 
   return (
     <>
-      <button onClick={modalViewer}>Delete this list</button>
+      <TrashTalk>
+        <div onClick={modalViewer}>
+          <Trash />
+          <div>Delete This List</div>
+        </div>
+      </TrashTalk>
       <Modal
         show={showModal}
         bgColor='#0099cc'
         // onCancel={closeEditor}
         header={`Are you sure you want to delete ${list.title}?`}
-        onSubmit={deleteList}
+        onSubmit={removeList}
         errorMsg={reqError}
         footer={
           <>
@@ -90,4 +115,4 @@ const RemoveList = ({ list, update }) => {
   );
 };
 
-export default RemoveList;
+export default DeleteList;

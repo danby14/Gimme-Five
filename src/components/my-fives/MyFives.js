@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { AuthContext } from '../context/auth-context';
+import { ListHolder } from '../styled/ListStyles';
 import { MainHeading } from '../styled/AppStyles';
 import ListContainer from './ListContainer';
-import ListButtons from './ListButtons';
+import ListSelector from './ListSelector';
 
 const MyFives = ({ match }) => {
   const auth = useContext(AuthContext);
@@ -14,11 +15,17 @@ const MyFives = ({ match }) => {
 
   let userId = auth.userId;
 
+  const authHeader = 'Bearer ' + auth.token;
+
   useEffect(() => {
     const fetchLists = async () => {
       setIsLoading(true);
       try {
-        let response = await fetch(`http://localhost:5000/lists/get/user/${userId}`);
+        let response = await fetch(`http://localhost:5000/lists/get/user/${userId}`, {
+          headers: {
+            Authorization: authHeader,
+          },
+        });
         if (!response.ok) {
           throw new Error('No lists found');
         }
@@ -31,18 +38,21 @@ const MyFives = ({ match }) => {
       }
     };
     fetchLists();
-  }, [userId, count]);
+  }, [userId, count, authHeader]);
 
   const forceRerender = () => {
     setCount(count + 1);
   };
 
   return (
-    <>
-      <MainHeading>My Fives for User: {auth.userName}</MainHeading>
-      <ListButtons lists={lists} setActiveList={setActiveList} />
+    <ListHolder>
+      <div className='listHeader'>
+        <MainHeading>My Fives</MainHeading>
+        <div className='creator'>by: {auth.userName}</div>
+      </div>
+      <ListSelector lists={lists} lid={activeList} setLid={setActiveList} />
       <ListContainer list={lists[activeList]} update={forceRerender} />
-    </>
+    </ListHolder>
   );
 };
 

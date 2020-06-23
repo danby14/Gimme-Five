@@ -37,13 +37,13 @@ const AddComment = ({ listId, update }) => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + auth.token,
           },
           body: JSON.stringify(data),
         },
         { withCredentials: true }
       );
       let userData = await response.json();
-      // console.log(userData, 'it worked');
       setIsLoading(false);
       modalViewer();
       update();

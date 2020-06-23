@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
 import { useForm } from 'react-hook-form';
 
+import { AuthContainer } from '../styled/AuthStyles';
 import { MainHeading } from '../styled/AppStyles';
 
-const Login = () => {
+const Login = ({ swapForms }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,64 +14,75 @@ const Login = () => {
   const onSubmit = async data => {
     setIsLoading(true);
     try {
-      let response = await fetch(
-        `http://localhost:5000/user/login`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+      let response = await fetch(`http://localhost:5000/user/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        { withCredentials: true }
-      );
+        body: JSON.stringify(data),
+      });
       let userData = await response.json();
-      // console.log(userData, 'userData');
+      if (!response.ok) {
+        throw userData;
+      }
       setIsLoading(false);
-      auth.login(userData.id, userData.username);
-      // auth.login(userData.id, userData.username, userData.token);
+      auth.login(userData.id, userData.username, userData.token);
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
       setIsLoading(false);
     }
   };
 
   return (
     <>
-      <MainHeading>Login</MainHeading>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor='email'>Email</label>
+      <AuthContainer>
+        <MainHeading>Login</MainHeading>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <input
-              name='email'
-              type='email'
-              ref={register({ required: 'Please Enter a Valid Email' })}
-            />
-            <p>{errors.email && errors.email.message}</p>
+            <label htmlFor='email'>Email</label>
+            <div>
+              <input
+                name='email'
+                type='email'
+                placeholder='Enter your email'
+                ref={register({ required: 'Please Enter a Valid Email' })}
+              />
+              <p>{errors.email && errors.email.message}</p>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor='password'>Password</label>
           <div>
-            <input
-              name='password'
-              type='password'
-              ref={register({
-                required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'miniumum of 6 characters' },
-              })}
-            />
-            <p>{errors.password && errors.password.message}</p>
+            <label htmlFor='password'>Password</label>
+            <div>
+              <input
+                name='password'
+                type='password'
+                placeholder='Password'
+                ref={register({
+                  required: 'Please Enter a Valid Password',
+                  minLength: { value: 6, message: 'miniumum of 6 characters' },
+                })}
+              />
+              <p>{errors.password && errors.password.message}</p>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <button type='submit'>Submit</button>
+          <div>
+            <p>{error}</p>
+            <button type='submit' className='submitter'>
+              Log In
+            </button>
+          </div>
+        </form>
+        <div className='hasLink'>
+          Don't have an account?{' '}
+          <button onClick={swapForms} type='button'>
+            Sign Up
+          </button>
         </div>
-      </form>
+      </AuthContainer>
     </>
   );
 };

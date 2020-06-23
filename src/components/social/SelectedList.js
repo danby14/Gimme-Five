@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { MainHeading } from '../styled/AppStyles';
 import { ListHolder } from '../styled/ListStyles';
 import Vote from './Vote';
-import Comments from './Comments';
+import Comments from '../shared/Comments';
 import AddComment from './AddComment';
 
 const List = ({ match }) => {
@@ -12,7 +12,6 @@ const List = ({ match }) => {
   const [count, setCount] = useState(0);
   const [list, setList] = useState([]);
   let { id } = useParams();
-  // let locale = useLocation();
   let history = useHistory();
 
   useEffect(() => {
@@ -51,8 +50,8 @@ const List = ({ match }) => {
         </ol>
         <div>
           <h2>Vote</h2>
-          {/* does vote need forceRerender? Only if we want to add the new vote to counts. Might be a waste. */}
-          <Vote listId={list.id} update={forceRerender} />
+          {/* if votes.voter_id includes auth.id show results bar graph */}
+          <Vote votes={list.votes} listId={list.id} update={forceRerender} />
         </div>
         <div>
           <h2>Comments</h2>

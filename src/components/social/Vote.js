@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { AuthContext } from '../context/auth-context';
 import { useForm } from 'react-hook-form';
+import { useTally } from '../../hooks/useTally';
+import VotesGraph from '../shared/VotesGraph';
 
 const VoteContainer = styled.div`
-  p {
+  width: 95% p {
     text-align: left;
   }
   input {
@@ -15,13 +17,31 @@ const VoteContainer = styled.div`
     text-align: left;
     padding: 0.3rem;
   }
+  @media only screen and (min-width: 992px) {
+    width: 65%;
+  }
 `;
 
-const Vote = ({ listId }) => {
+const Vote = ({ listId, votes, update }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
+  const [voted, setVoted] = useState(false);
+  const [votesTally, setVotesTally] = useState(null);
+  const info = useTally(votesTally);
+
+  useEffect(() => {
+    if (votes) {
+      let voterIds = votes.map(vote => vote.voter_id);
+      let allVotes = votes.map(vote => vote.vote);
+      if (voterIds.includes(auth.userId)) {
+        setVoted(true);
+        setVotesTally(allVotes);
+      }
+    }
+  }, [auth.userId, votes]);
+
   const onSubmit = async data => {
     data.voter_id = auth.userId;
     setIsLoading(true);
@@ -33,6 +53,7 @@ const Vote = ({ listId }) => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + auth.token,
           },
           body: JSON.stringify(data),
         },
@@ -44,6 +65,7 @@ const Vote = ({ listId }) => {
       }
       setError(null);
       setIsLoading(false);
+      update();
     } catch (err) {
       setError(err);
       setIsLoading(false);
@@ -52,7 +74,7 @@ const Vote = ({ listId }) => {
 
   return (
     <VoteContainer>
-      {auth.userId && (
+      {auth.userId && !voted && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='vote'>Choose your favorite (can only vote once)</label>
           <div>
@@ -68,6 +90,7 @@ const Vote = ({ listId }) => {
           </div>
         </form>
       )}
+      {auth.userId && voted && <VotesGraph results={info} />}
       {!auth.userId && <p>Must be logged in to Vote and see results.</p>}
     </VoteContainer>
   );

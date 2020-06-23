@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
 import { useForm } from 'react-hook-form';
 
+import { AuthContainer, Checkbox } from '../styled/AuthStyles';
 import { MainHeading } from '../styled/AppStyles';
 
-const Register = () => {
+const Register = ({ swapForms }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,30 +14,29 @@ const Register = () => {
   const onSubmit = async data => {
     setIsLoading(true);
     try {
-      let response = await fetch(
-        `http://localhost:5000/user/register`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+      let response = await fetch(`http://localhost:5000/user/register`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        { withCredentials: true }
-      );
+        body: JSON.stringify(data),
+      });
       let userData = await response.json();
+      if (!response.ok) {
+        throw userData;
+      }
       setIsLoading(false);
-      auth.login(userData.id, userData.username);
-      // auth.login(userData.id, userData.username, userData.token);
+      auth.login(userData.id, userData.username, userData.token);
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
       setIsLoading(false);
     }
   };
 
   return (
-    <>
+    <AuthContainer>
       <MainHeading>Register</MainHeading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -50,7 +50,7 @@ const Register = () => {
                 maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
-            <p className='has-text-danger'>{errors.username && errors.username.message}</p>
+            <p>{errors.username && errors.username.message}</p>
           </div>
         </div>
 
@@ -83,35 +83,23 @@ const Register = () => {
 
         <div>
           <label htmlFor='opt_in'>Opt-in to future newsletters</label>
-          <div>
-            <label className='radio'>
-              &nbsp;
-              <input
-                name='opt_in'
-                type='radio'
-                value='true'
-                ref={register({ required: 'Please Choose One' })}
-              />
-              {' Yes  '}&nbsp;
-            </label>
-            <label>
-              <input
-                name='opt_in'
-                type='radio'
-                value='false'
-                ref={register({ required: 'Please Choose One' })}
-              />
-              {' No'}
-            </label>
-            <p>{errors.optIn && errors.optIn.message}</p>
-          </div>
+          <Checkbox placeholder='opt_in' name='opt_in' ref={register} />
         </div>
 
         <div>
-          <button type='submit'>Submit</button>
+          <p>{error}</p>
+          <button type='submit' className='submitter'>
+            Submit
+          </button>
         </div>
       </form>
-    </>
+      <div className='hasLink'>
+        Already have an account?{' '}
+        <button onClick={swapForms} type='button'>
+          Log In
+        </button>
+      </div>
+    </AuthContainer>
   );
 };
 

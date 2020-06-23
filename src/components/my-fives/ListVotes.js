@@ -1,41 +1,23 @@
 import React from 'react';
+import styled from 'styled-components/macro';
+import VotesGraph from '../shared/VotesGraph';
+import { useTally } from '../../hooks/useTally';
 
 const ListVotes = ({ votes }) => {
-  let counter = [0, 0, 0, 0, 0];
-  if (votes) {
-    votes.forEach(vote => {
-      switch (vote) {
-        case 1:
-          counter[0] += 1;
-          break;
-        case 2:
-          counter[1] += 1;
-          break;
-        case 3:
-          counter[2] += 1;
-          break;
-        case 4:
-          counter[3] += 1;
-          break;
-        case 5:
-          counter[4] += 1;
-          break;
-        default:
-          console.log('uh oh');
-          break;
-      }
-    });
-  }
+  const VotesResults = styled.div`
+    width: 95%;
+
+    @media only screen and (min-width: 992px) {
+      width: 65%;
+    }
+  `;
+
+  const allVotes = useTally(votes);
 
   return (
-    <div>
-      <h3>Votes</h3>
-      {counter.map((vote, i) => (
-        <React.Fragment key={i}>
-          <p>{vote}</p>
-        </React.Fragment>
-      ))}
-    </div>
+    <VotesResults>
+      <VotesGraph results={allVotes} />
+    </VotesResults>
   );
 };
 

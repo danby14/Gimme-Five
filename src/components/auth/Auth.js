@@ -18,12 +18,8 @@ const Auth = () => {
 
   return (
     <div>
-      {login && <Login />}
-      {register && <Register />}
-      <div>
-        <button onClick={loginHandler}>Login</button>
-        <button onClick={registerHandler}>Register</button>
-      </div>
+      {login && <Login swapForms={registerHandler} />}
+      {register && <Register swapForms={loginHandler} />}
     </div>
   );
 };

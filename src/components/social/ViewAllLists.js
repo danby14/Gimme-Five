@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useLocal } from '../../hooks/useLocal';
+import { useSession } from '../../hooks/custom';
 import { MainHeading } from '../styled/AppStyles';
 import TitleCard from './TitleCard';
 
 const ViewAllLists = ({ match }) => {
-  const [currentPage, setCurrentPage] = useLocal(1, 'currentPage');
+  const [currentPage, setCurrentPage] = useSession(1, 'currentPage');
   const [totalPages, setTotalPages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   // no point to store lists in localStorage until you can get the useEffect to not run if it has the current list for that page already in it.
@@ -40,7 +40,7 @@ const ViewAllLists = ({ match }) => {
   return (
     <div>
       <MainHeading>All Users Lists</MainHeading>
-      Where you browse all other user submissions and cast your favorite on your favorite one.
+      Browse other users submissions and vote for your favorites.
       {!isLoading &&
         lists &&
         lists.map(list => (

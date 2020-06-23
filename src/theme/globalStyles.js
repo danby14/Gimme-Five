@@ -14,7 +14,6 @@ html {
 
 body {
   background-color: #f8f9fa;
-  /* background-color: gainsboro; */
   font-family: 'Sanchez', serif;
   /* font-family: 'Montserrat', sans-serif; */
 }
