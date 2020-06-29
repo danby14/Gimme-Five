@@ -6,8 +6,8 @@ import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
 import { Container } from '../styled/ListOfFiveStyles';
 import { Button2 } from '../styled/Button';
-import { CloseO } from '../styled/CloseO';
 import { Pen } from '../styled/Pen';
+import { Trash } from '../styled/TrashCan';
 
 const ListOfFive = () => {
   const auth = useContext(AuthContext);
@@ -17,7 +17,6 @@ const ListOfFive = () => {
   const [title, setTitle] = useState('');
   const [oldThought, setOldThought] = useState({});
   const [thoughts, setThoughts] = useLocal([], 'thoughts');
-  // const [thoughts, setThoughts] = useState([]);
   const inputRef = useRef(null);
   const [editModal, setEditModal] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
@@ -90,9 +89,9 @@ const ListOfFive = () => {
       closeSubmitter();
       history.push('/myfives');
     } catch (err) {
-      setReqError(err.message);
       setDisabled(true);
       setIsLoading(false);
+      setReqError(err.message);
       console.error(err.message);
     }
   };
@@ -114,14 +113,23 @@ const ListOfFive = () => {
             <div className='item-container'>
               <span>{x}</span>
               <div className='editButtons'>
-                <CloseO onClick={() => removeItem(i)} margin='1rem' />
                 <Pen onClick={() => openEditor(i)} />
+                <Trash onClick={() => removeItem(i)} />
               </div>
             </div>
           </li>
         ))}
       </ol>
-      {userId && thoughts.length >= 5 && <Button2 onClick={openSubmitter}>Save Five</Button2>}
+      {userId && thoughts.length >= 5 && (
+        <Button2
+          onClick={openSubmitter}
+          bgColor='#098d9c'
+          color='white'
+          border='1.35px solid darkblue'
+        >
+          Save Five
+        </Button2>
+      )}
       {!userId && (
         <div>
           <p>
@@ -137,7 +145,13 @@ const ListOfFive = () => {
         onSubmit={handleEditSubmit}
         footer={
           <>
-            <Button2 type='submit' bgColor='#098d9c' color='white'>
+            <Button2
+              type='submit'
+              loading={isLoading}
+              spinColor='white'
+              bgColor='#098d9c'
+              color='white'
+            >
               Submit
             </Button2>
             <Button2 onClick={closeEditor} bgColor='' color='#00626e'>
@@ -156,7 +170,14 @@ const ListOfFive = () => {
         errorMsg={reqError}
         footer={
           <>
-            <Button2 type='submit' bgColor='#098d9c' color='white' disabled={disabled}>
+            <Button2
+              type='submit'
+              bgColor='#098d9c'
+              loading={isLoading}
+              spinColor='white'
+              color='white'
+              disabled={disabled}
+            >
               Submit
             </Button2>
             <Button2 onClick={closeSubmitter} bgColor='' color='#00626e'>

@@ -47,7 +47,7 @@ export const Container = styled.div`
   .editButtons {
     display: flex;
     align-items: center;
-    padding-right: 0.5rem;
+    padding-right: 0.75rem;
   }
   button {
     cursor: grab;

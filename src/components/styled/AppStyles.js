@@ -10,26 +10,6 @@ export const AppContainer = styled.div`
   }
 `;
 
-export const Navbar = styled.div`
-  position: sticky;
-  top: 0;
-  background-color: #343a40;
-  color: rgb(255, 255, 255, 0.9);
-  width: 100%;
-  padding: 0.875rem 1.5rem;
-
-  @media (min-width: 992px) {
-    min-width: 264px;
-    width: 264px;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* justify-content: space-evenly; */
-    /* text-align: center; */
-    padding: 1.5rem;
-  }
-`;
-
 export const MainContainer = styled.div`
   padding: 0 1rem;
 
@@ -58,9 +38,10 @@ export const RowOfButtons = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 1rem 0 auto;
 
   @media (min-width: 992px) {
+    margin: 0 auto;
     position: fixed;
     bottom: 0;
     left: 0;

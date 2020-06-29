@@ -3,6 +3,7 @@ import { AuthContext } from '../context/auth-context';
 import { useForm } from 'react-hook-form';
 
 import { AuthContainer, Checkbox } from '../styled/AuthStyles';
+import { AuthButton } from '../styled/Button';
 import { MainHeading } from '../styled/AppStyles';
 
 const Register = ({ swapForms }) => {
@@ -50,7 +51,7 @@ const Register = ({ swapForms }) => {
                 maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
-            <p>{errors.username && errors.username.message}</p>
+            <p className='error'>{errors.username && errors.username.message}</p>
           </div>
         </div>
 
@@ -62,7 +63,7 @@ const Register = ({ swapForms }) => {
               type='email'
               ref={register({ required: 'Please Enter a Valid Email' })}
             />
-            <p>{errors.email && errors.email.message}</p>
+            <p className='error'>{errors.email && errors.email.message}</p>
           </div>
         </div>
 
@@ -77,7 +78,7 @@ const Register = ({ swapForms }) => {
                 minLength: { value: 6, message: 'miniumum of 6 characters' },
               })}
             />
-            <p>{errors.password && errors.password.message}</p>
+            <p className='error'>{errors.password && errors.password.message}</p>
           </div>
         </div>
 
@@ -87,10 +88,10 @@ const Register = ({ swapForms }) => {
         </div>
 
         <div>
-          <p>{error}</p>
-          <button type='submit' className='submitter'>
+          <p className='error'>{error}</p>
+          <AuthButton type='submit' loading={isLoading} spinColor='white' border='2px outset gray'>
             Submit
-          </button>
+          </AuthButton>
         </div>
       </form>
       <div className='hasLink'>

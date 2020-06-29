@@ -14,7 +14,7 @@ export const AuthContainer = styled.div`
     div {
       margin-top: 0.25rem;
       margin-bottom: 1.25rem;
-      p {
+      .error {
         color: red;
       }
       label {

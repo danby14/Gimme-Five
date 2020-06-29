@@ -20,6 +20,11 @@ const AddCommentContainer = styled.div`
   }
 `;
 
+const ErrorText = styled.p`
+  margin-left: 1rem;
+  color: red;
+`;
+
 const AddComment = ({ listId, update }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +49,7 @@ const AddComment = ({ listId, update }) => {
         { withCredentials: true }
       );
       let userData = await response.json();
+      console.log('Comment added at:', userData[0].created_at);
       setIsLoading(false);
       modalViewer();
       update();
@@ -65,7 +71,15 @@ const AddComment = ({ listId, update }) => {
         onSubmit={handleSubmit(onSubmit)}
         footer={
           <>
-            <Button2 type='submit'>Submit</Button2>
+            <Button2
+              type='submit'
+              loading={isLoading}
+              bgColor='#098d9c'
+              color='white'
+              spinColor='white'
+            >
+              Submit
+            </Button2>
             <Button2 onClick={modalViewer}>Close</Button2>
           </>
         }
@@ -75,13 +89,15 @@ const AddComment = ({ listId, update }) => {
           type='text'
           ref={register({
             required: 'Please Enter a Comment',
-            minLength: { value: 5, message: 'min of 5 characters' },
+            minLength: { value: 5, message: 'Min of 5 characters' },
+            maxLength: { value: 200, message: 'Max of 200 characters' },
           })}
         />
-        <p>{errors.comment && errors.comment.message}</p>
+        <ErrorText>{errors.comment && errors.comment.message}</ErrorText>
+        {error && <ErrorText>{error}</ErrorText>}
       </Modal>
       {auth.userId && <button onClick={modalViewer}>Add Comment</button>}
-      {!auth.userId && <p>Must be logged in to comment.</p>}
+      {!auth.userId && <ErrorText>Must be logged in to comment.</ErrorText>}
     </AddCommentContainer>
   );
 };

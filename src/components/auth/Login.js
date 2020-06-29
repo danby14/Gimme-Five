@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { AuthContainer } from '../styled/AuthStyles';
 import { MainHeading } from '../styled/AppStyles';
+import { AuthButton } from '../styled/Button';
 
 const Login = ({ swapForms }) => {
   const auth = useContext(AuthContext);
@@ -49,7 +50,7 @@ const Login = ({ swapForms }) => {
                 placeholder='Enter your email'
                 ref={register({ required: 'Please Enter a Valid Email' })}
               />
-              <p>{errors.email && errors.email.message}</p>
+              <p className='error'>{errors.email && errors.email.message}</p>
             </div>
           </div>
 
@@ -65,15 +66,20 @@ const Login = ({ swapForms }) => {
                   minLength: { value: 6, message: 'miniumum of 6 characters' },
                 })}
               />
-              <p>{errors.password && errors.password.message}</p>
+              <p className='error'>{errors.password && errors.password.message}</p>
             </div>
           </div>
 
           <div>
-            <p>{error}</p>
-            <button type='submit' className='submitter'>
+            <p className='error'>{error}</p>
+            <AuthButton
+              type='submit'
+              loading={isLoading}
+              spinColor='white'
+              border='2px outset gray'
+            >
               Log In
-            </button>
+            </AuthButton>
           </div>
         </form>
         <div className='hasLink'>

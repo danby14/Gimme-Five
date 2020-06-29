@@ -6,7 +6,7 @@ export const Container = styled.div`
   padding-bottom: 1rem;
 
   @media screen and (min-width: 992px) {
-    padding-bottom: 8rem;
+    padding-bottom: 9.5rem;
   }
 
   @media only screen and (min-width: 1200px) {

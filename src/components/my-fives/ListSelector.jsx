@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListButtons = ({ lists, lid, setLid }) => {
+const ListSelector = ({ lists, lid, setLid }) => {
   return (
     <select value={lid} onChange={e => setLid(e.target.value)}>
       {lists &&
@@ -13,4 +13,4 @@ const ListButtons = ({ lists, lid, setLid }) => {
   );
 };
 
-export default ListButtons;
+export default ListSelector;

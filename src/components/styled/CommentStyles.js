@@ -17,13 +17,11 @@ const Comment = styled.div`
 
 const UserAndTime = styled.div`
   display: flex;
+  font-size: 0.85rem;
   /* padding: 0.5rem; */
   p {
     color: blue;
     padding-right: 0.5rem;
-  }
-  font-size: 0.8rem;
-  span {
   }
 `;
 

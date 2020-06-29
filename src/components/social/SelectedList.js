@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import Comments from '../shared/Comments';
 import { MainHeading } from '../styled/AppStyles';
 import { ListHolder } from '../styled/ListStyles';
-import Vote from './Vote';
-import Comments from '../shared/Comments';
 import AddComment from './AddComment';
+import Vote from './Vote';
+import { CircleSpinner } from '../shared/CircleSpinner';
 
 const List = ({ match }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +50,6 @@ const List = ({ match }) => {
         </ol>
         <div>
           <h2>Vote</h2>
-          {/* if votes.voter_id includes auth.id show results bar graph */}
           <Vote votes={list.votes} listId={list.id} update={forceRerender} />
         </div>
         <div>
@@ -63,7 +62,7 @@ const List = ({ match }) => {
       </ListHolder>
     );
   } else {
-    return <div>loading..</div>;
+    return <CircleSpinner loading={isLoading} />;
   }
 };
 

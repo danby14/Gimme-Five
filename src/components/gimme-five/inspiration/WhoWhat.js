@@ -3,7 +3,7 @@ import { CloseO } from '../../styled/CloseO';
 import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const WhoWhat = ({ add, subtract }) => {
-  const options = ['who', 'what', 'why', 'where', 'when', 'how'];
+  const options = ['Who?', 'What?', 'Why?', 'Where?', 'When?', 'How?'];
   const [question, setQuestion] = useState('');
   const [showQuestion, setShowQuestion] = useState('');
 

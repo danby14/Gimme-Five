@@ -7,7 +7,8 @@ const StyledChevron = styled.i`
     box-sizing: border-box;
     position: relative;
     display: block;
-    transform: scale(var(--ggs, 0.7));
+    /* transform: scale(var(--ggs, 0.7)); */
+    transform: scale(var(--ggs, ${({ scale }) => scale || '.7'}));
     width: 22px;
     height: 22px;
     border: 2px solid transparent;

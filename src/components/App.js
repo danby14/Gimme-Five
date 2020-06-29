@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import { Container, Row, Col } from './styled/Grid';
-import { AppContainer, Navbar, MainContainer } from './styled/AppStyles';
+import { AppContainer, MainContainer } from './styled/AppStyles';
 import { AuthContext } from './context/auth-context';
 
 import Auth from './auth/Auth';
@@ -120,9 +120,7 @@ function App() {
     >
       <Router>
         <AppContainer>
-          <Navbar>
-            <MainNavbar />
-          </Navbar>
+          <MainNavbar />
           <Container>
             <Row>
               <Col size={1} collapse='xs'></Col>

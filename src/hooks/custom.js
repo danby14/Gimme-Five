@@ -15,7 +15,7 @@ export function useLocal(defaultValue, key) {
 // useSession
 export function useSession(defaultValue, key) {
   const [value, setValue] = useState(() => {
-    const stickyValue = window.localStorage.getItem(key);
+    const stickyValue = window.sessionStorage.getItem(key);
     return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
   });
   useEffect(() => {

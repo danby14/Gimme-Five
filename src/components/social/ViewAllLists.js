@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
+import { CircleSpinner } from '../shared/CircleSpinner';
 import { useSession } from '../../hooks/custom';
 import { MainHeading } from '../styled/AppStyles';
+import { ChevronLeft, ChevronRight } from '../styled/Chevron2';
 import TitleCard from './TitleCard';
+
+const Link2 = styled(Link)`
+  text-decoration: none;
+`;
+
+const Navigation = styled.div`
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  .align {
+    margin: 0 1rem;
+  }
+`;
 
 const ViewAllLists = ({ match }) => {
   const [currentPage, setCurrentPage] = useSession(1, 'currentPage');
@@ -45,14 +61,19 @@ const ViewAllLists = ({ match }) => {
         lists &&
         lists.map(list => (
           <div key={list.id}>
-            <Link to={`${match.url}/${list.id}`}>
+            <Link2 to={`${match.url}/${list.id}`}>
               <TitleCard list={list} />
-            </Link>
+            </Link2>
           </div>
         ))}
-      <button onClick={() => changePage('subtract')}>back</button>
-      {currentPage} of {totalPages}
-      <button onClick={() => changePage('add')}>next</button>
+      <CircleSpinner loading={isLoading} />
+      <Navigation>
+        <ChevronLeft onClick={() => changePage('subtract')} scale='1.1' />
+        <div className='align'>
+          {currentPage} of {totalPages}
+        </div>
+        <ChevronRight onClick={() => changePage('add')} scale='1.1' />
+      </Navigation>
     </div>
   );
 };

@@ -3,8 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
 import { ListHolder } from '../styled/ListStyles';
 import { MainHeading } from '../styled/AppStyles';
+import ListsRemaining from './ListsRemaining';
 import ListContainer from './ListContainer';
 import ListSelector from './ListSelector';
+import { CircleSpinner } from '../shared/CircleSpinner';
 
 const MyFives = ({ match }) => {
   const auth = useContext(AuthContext);
@@ -34,6 +36,7 @@ const MyFives = ({ match }) => {
         setIsLoading(false);
       } catch (err) {
         console.error(err.message);
+        setLists([]);
         setIsLoading(false);
       }
     };
@@ -50,8 +53,10 @@ const MyFives = ({ match }) => {
         <MainHeading>My Fives</MainHeading>
         <div className='creator'>by: {auth.userName}</div>
       </div>
-      <ListSelector lists={lists} lid={activeList} setLid={setActiveList} />
+      {lists.length > 0 && <ListSelector lists={lists} lid={activeList} setLid={setActiveList} />}
+      {!isLoading && <ListsRemaining listsUsed={lists.length} />}
       <ListContainer list={lists[activeList]} update={forceRerender} />
+      <CircleSpinner loading={isLoading} />
     </ListHolder>
   );
 };

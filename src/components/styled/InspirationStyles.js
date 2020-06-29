@@ -1,6 +1,6 @@
 import React from 'react';
-import { Chevron } from './Chevron';
-import { Button } from './Button';
+import { ChevronLeft, ChevronRight } from './Chevron2';
+import { Button2 } from './Button';
 import styled from 'styled-components/macro';
 
 export const Inspiration = styled.div`
@@ -66,17 +66,23 @@ export const InfoBox = ({ children }) => {
 const SimpleFlex = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   /* background-color: buttonface; */
-  background-color: #efefef;
-  align-items: flex-end;
+  /* background-color: #efefef; */
+  /* background-color: burlywood; */
+  background-color: mediumslateblue;
+  color: white;
+  height: 2.5rem;
 `;
 
 export const RandomButton = ({ children, add, subtract, handleSubmit }) => {
   return (
     <SimpleFlex>
-      <Chevron rotate='135' onClick={subtract} />
-      <Button onClick={handleSubmit}>{children}</Button>
-      <Chevron rotate='315' onClick={add} />
+      <ChevronLeft onClick={subtract} />
+      <Button2 bgColor='mediumslateblue' color='white' onClick={handleSubmit}>
+        {children}
+      </Button2>
+      <ChevronRight onClick={add} />
     </SimpleFlex>
   );
 };

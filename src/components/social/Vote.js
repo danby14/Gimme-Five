@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { AuthContext } from '../context/auth-context';
 import { useForm } from 'react-hook-form';
 import { useTally } from '../../hooks/useTally';
+import { Button2 } from '../styled/Button';
 import VotesGraph from '../shared/VotesGraph';
 
 const VoteContainer = styled.div`
@@ -26,7 +27,7 @@ const Vote = ({ listId, votes, update }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [voted, setVoted] = useState(false);
   const [votesTally, setVotesTally] = useState(null);
   const info = useTally(votesTally);
@@ -86,7 +87,16 @@ const Vote = ({ listId, votes, update }) => {
           </div>
           {error && <p className='err'>{error.message}</p>}
           <div>
-            <button type='submit'>Submit</button>
+            <Button2
+              type='submit'
+              loading={isLoading}
+              spinColor='white'
+              bgColor='#098d9c'
+              color='white'
+              border='1.5px solid mediumblue'
+            >
+              Submit
+            </Button2>
           </div>
         </form>
       )}

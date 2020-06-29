@@ -3,15 +3,15 @@ import styled from 'styled-components/macro';
 import VotesGraph from '../shared/VotesGraph';
 import { useTally } from '../../hooks/useTally';
 
+const VotesResults = styled.div`
+  width: 95%;
+
+  @media only screen and (min-width: 992px) {
+    width: 65%;
+  }
+`;
+
 const ListVotes = ({ votes }) => {
-  const VotesResults = styled.div`
-    width: 95%;
-
-    @media only screen and (min-width: 992px) {
-      width: 65%;
-    }
-  `;
-
   const allVotes = useTally(votes);
 
   return (

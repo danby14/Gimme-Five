@@ -4,7 +4,8 @@ import styled from 'styled-components/macro';
 const StyledPen = styled.i`
   & {
     cursor: pointer;
-    margin-left: 0.5rem;
+    /* margin-left: 0.5rem; */
+    margin-right: 0.75rem;
     box-sizing: border-box;
     position: relative;
     display: block;
@@ -15,7 +16,7 @@ const StyledPen = styled.i`
     box-shadow: 0 0 0 2px, inset -2px 0 0;
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
-    margin-right: -2px;
+    /* margin-right: -2px; */
   }
   &::after,
   &::before {

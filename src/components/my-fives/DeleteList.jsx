@@ -6,26 +6,27 @@ import { Trash } from '../styled/TrashCan';
 import Modal from '../shared/Modal';
 import { AuthContext } from '../context/auth-context';
 
+const TrashTalk = styled.div`
+  display: inline-block;
+  margin: 0.75rem 0 0.45rem 0;
+  div {
+    display: flex;
+    align-items: baseline;
+    color: red;
+    div {
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+  }
+`;
+
 const DeleteList = ({ list, update }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [verifyTitle, setVerifyTitle] = useState('');
   const [reqError, setReqError] = useState(null);
 
   const auth = useContext(AuthContext);
-
-  const TrashTalk = styled.div`
-    display: inline-block;
-    margin: 0.75rem 0 0.45rem 0;
-    div {
-      display: flex;
-      align-items: baseline;
-      color: red;
-      div {
-        cursor: pointer;
-        margin-left: 1rem;
-      }
-    }
-  `;
 
   const modalViewer = () => {
     setVerifyTitle('');
@@ -40,9 +41,10 @@ const DeleteList = ({ list, update }) => {
   const removeList = async e => {
     e.preventDefault();
     let listId = list.id;
+    // let userData = auth.userId;
+    setIsLoading(true);
     if (verifyTitle.trim() === list.title.trim()) {
       try {
-        let userData = { userId: 1 };
         let response = await fetch(`http://localhost:5000/lists/remove/${listId}`, {
           method: 'DELETE',
           headers: {
@@ -50,7 +52,7 @@ const DeleteList = ({ list, update }) => {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + auth.token,
           },
-          body: JSON.stringify(userData),
+          // body: JSON.stringify(userData),
         });
         let data = await response.json();
         if (!response.ok) {
@@ -60,13 +62,16 @@ const DeleteList = ({ list, update }) => {
 
         setVerifyTitle('');
         setReqError(null);
-        update();
+        setIsLoading(false);
         modalViewer();
+        update();
       } catch (err) {
+        setIsLoading(false);
         console.error(err.message);
         setReqError(err.message);
       }
     } else {
+      setIsLoading(false);
       setReqError('Titles did not match');
     }
   };
@@ -88,7 +93,13 @@ const DeleteList = ({ list, update }) => {
         errorMsg={reqError}
         footer={
           <>
-            <Button2 type='submit' bgColor='#dc3545' color='white'>
+            <Button2
+              type='submit'
+              bgColor='#dc3545'
+              color='white'
+              loading={isLoading}
+              spinColor='white'
+            >
               Delete
             </Button2>
             <Button2 onClick={modalViewer} bgColor='' color='#00626e'>
