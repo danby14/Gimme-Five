@@ -22,8 +22,6 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [userName, setUserName] = useState();
 
-  console.log('base', BASE_URL);
-
   const login = useCallback((uid, username, token) => {
     setUserId(uid);
     setUserName(username);
