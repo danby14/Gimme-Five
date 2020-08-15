@@ -7,6 +7,7 @@ import { AuthButton } from '../styled/Button';
 import { MainHeading } from '../styled/AppStyles';
 
 const Register = ({ swapForms }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +16,7 @@ const Register = ({ swapForms }) => {
   const onSubmit = async data => {
     setIsLoading(true);
     try {
-      let response = await fetch(`http://localhost:5000/user/register`, {
+      let response = await fetch(`${BASE_URL}/user/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {

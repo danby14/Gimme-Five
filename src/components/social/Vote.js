@@ -24,6 +24,7 @@ const VoteContainer = styled.div`
 `;
 
 const Vote = ({ listId, votes, update }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -48,7 +49,7 @@ const Vote = ({ listId, votes, update }) => {
     setIsLoading(true);
     try {
       let response = await fetch(
-        `http://localhost:5000/votes/post/${listId}`,
+        `${BASE_URL}/votes/post/${listId}`,
         {
           method: 'POST',
           headers: {

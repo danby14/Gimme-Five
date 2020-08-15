@@ -22,6 +22,7 @@ const Navigation = styled.div`
 `;
 
 const ViewAllLists = ({ match }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [currentPage, setCurrentPage] = useSession(1, 'currentPage');
   const [totalPages, setTotalPages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,7 @@ const ViewAllLists = ({ match }) => {
     const fetchLists = async () => {
       setIsLoading(true);
       try {
-        let response = await fetch(`http://localhost:5000/lists/get/page/${currentPage}`);
+        let response = await fetch(`${BASE_URL}/lists/get/page/${currentPage}`);
         let data = await response.json();
         setLists(data.data);
         setTotalPages(data.pagination.lastPage);
@@ -41,7 +42,7 @@ const ViewAllLists = ({ match }) => {
       }
     };
     fetchLists();
-  }, [currentPage]);
+  }, [currentPage, BASE_URL]);
 
   const changePage = operator => {
     if (operator === 'add' && currentPage < totalPages) {

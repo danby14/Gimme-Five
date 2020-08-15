@@ -3,12 +3,12 @@ import { CloseO } from '../../styled/CloseO';
 import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const RandomWord = ({ add, subtract }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [randomWord, setRandomWord] = useState('');
   const [showRandomWord, setShowRandomWord] = useState('');
   const handleSubmit = async () => {
     try {
-      // let response = await fetch(`http://localhost:5000/random/word`);
-      let response = await fetch(`https://five.danby.me/random/word`);
+      let response = await fetch(`${BASE_URL}/random/word`);
       let data = await response.text();
       if (!response.ok) throw response.statusText;
       setRandomWord(data);

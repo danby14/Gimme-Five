@@ -9,6 +9,7 @@ import ListSelector from './ListSelector';
 import { CircleSpinner } from '../shared/CircleSpinner';
 
 const MyFives = ({ match }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ const MyFives = ({ match }) => {
     const fetchLists = async () => {
       setIsLoading(true);
       try {
-        let response = await fetch(`http://localhost:5000/lists/get/user/${userId}`, {
+        let response = await fetch(`${BASE_URL}/lists/get/user/${userId}`, {
           headers: {
             Authorization: authHeader,
           },
@@ -41,7 +42,7 @@ const MyFives = ({ match }) => {
       }
     };
     fetchLists();
-  }, [userId, count, authHeader]);
+  }, [userId, count, authHeader, BASE_URL]);
 
   const forceRerender = () => {
     setCount(count + 1);

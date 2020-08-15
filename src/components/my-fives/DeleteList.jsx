@@ -21,6 +21,7 @@ const TrashTalk = styled.div`
 `;
 
 const DeleteList = ({ list, update }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [verifyTitle, setVerifyTitle] = useState('');
@@ -45,7 +46,7 @@ const DeleteList = ({ list, update }) => {
     setIsLoading(true);
     if (verifyTitle.trim() === list.title.trim()) {
       try {
-        let response = await fetch(`http://localhost:5000/lists/remove/${listId}`, {
+        let response = await fetch(`${BASE_URL}/lists/remove/${listId}`, {
           method: 'DELETE',
           headers: {
             Accept: 'application/json',

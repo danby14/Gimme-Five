@@ -26,6 +26,7 @@ const ErrorText = styled.p`
 `;
 
 const AddComment = ({ listId, update }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,7 +37,7 @@ const AddComment = ({ listId, update }) => {
     setIsLoading(true);
     try {
       let response = await fetch(
-        `http://localhost:5000/comments/post/${listId}`,
+        `${BASE_URL}/comments/post/${listId}`,
         {
           method: 'POST',
           headers: {

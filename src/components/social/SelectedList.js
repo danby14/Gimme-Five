@@ -8,6 +8,7 @@ import Vote from './Vote';
 import { CircleSpinner } from '../shared/CircleSpinner';
 
 const List = ({ match }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
   const [list, setList] = useState([]);
@@ -18,7 +19,7 @@ const List = ({ match }) => {
     const fetchList = async () => {
       setIsLoading(true);
       try {
-        let response = await fetch(`http://localhost:5000/lists/get/list/${id}`);
+        let response = await fetch(`${BASE_URL}/lists/get/list/${id}`);
         let data = await response.json();
         setList(data);
         setIsLoading(false);
@@ -27,7 +28,7 @@ const List = ({ match }) => {
       }
     };
     fetchList();
-  }, [id, count]);
+  }, [id, count, BASE_URL]);
 
   const forceRerender = () => {
     setCount(count + 1);

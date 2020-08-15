@@ -10,6 +10,7 @@ import { Pen } from '../styled/Pen';
 import { Trash } from '../styled/TrashCan';
 
 const ListOfFive = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [reqError, setReqError] = useState(null);
@@ -73,7 +74,7 @@ const ListOfFive = () => {
     let submittedData = { title: title, five: thoughts.slice(0, 5) };
     setIsLoading(true);
     try {
-      let response = await fetch(`http://localhost:5000/lists/post/user/${userId}`, {
+      let response = await fetch(`${BASE_URL}/lists/post/user/${userId}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

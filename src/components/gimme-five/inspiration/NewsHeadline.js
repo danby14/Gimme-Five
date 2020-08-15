@@ -3,13 +3,13 @@ import { CloseO } from '../../styled/CloseO';
 import { Inspiration, InfoBox, RandomButton } from '../../styled/InspirationStyles';
 
 const NewsHeadline = ({ add, subtract }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [newsHeadline, setNewsHeadline] = useState('');
   const [showNewsHeadline, setShowNewsHeadline] = useState('');
 
   const handleSubmit = async () => {
     try {
-      // let response = await fetch(`http://localhost:5000/random/headline`);
-      let response = await fetch(`https://five.danby.me/random/headline`);
+      let response = await fetch(`${BASE_URL}/random/headline`);
       let data = await response.text();
       if (!response.ok) throw response.statusText;
       setNewsHeadline(data);

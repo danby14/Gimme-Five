@@ -16,10 +16,13 @@ import Account from './account/Account';
 let logoutTimer;
 
 function App() {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
   const [userName, setUserName] = useState();
+
+  console.log('base', BASE_URL);
 
   const login = useCallback((uid, username, token) => {
     setUserId(uid);
@@ -32,27 +35,25 @@ function App() {
     setUserName(null);
     setToken(null);
     try {
-      fetch('http://localhost:5000/user/logout', { credentials: 'include' });
+      fetch(`${BASE_URL}/user/logout`, { credentials: 'include' });
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [BASE_URL]);
 
   const refresh = useCallback(() => {
-    fetch('http://localhost:5000/refresh_token', { method: 'POST', credentials: 'include' }).then(
-      async x => {
-        const { id, username, accessToken, ok } = await x.json();
-        if (ok) {
-          setUserName(username);
-          setUserId(id);
-          setToken(accessToken);
-        } else {
-          setToken(false);
-        }
-        setIsLoading(false);
+    fetch(`${BASE_URL}/refresh_token`, { method: 'POST', credentials: 'include' }).then(async x => {
+      const { id, username, accessToken, ok } = await x.json();
+      if (ok) {
+        setUserName(username);
+        setUserId(id);
+        setToken(accessToken);
+      } else {
+        setToken(false);
       }
-    );
-  }, []);
+      setIsLoading(false);
+    });
+  }, [BASE_URL]);
 
   useEffect(() => {
     refresh();
