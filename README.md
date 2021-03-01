@@ -1,22 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Gimme Five
+
+Users get help ranking their ideas and decisions by listing up to 5 of them, and then submiting that list to the community for voting, comments, and discussion. Should I wear red shoes or black? This book idea or that one?
+
+*This repo is for the frontend code. Backend code can be found at https://github.com/danby14/Gimme-Five-backend*
 
 ## Features
 
-List of Five(Add, Edit, Delete)
+- Make / Update list of up to five items (Add, Edit, Delete)
+- Idea Generators to help user come up with list items
+  - Random Wiki link from external wikimedia api
+  - Random news headline from external newsApi
+  - Random topic
+  - Random word from a random word generating external api<br />
+  - Random name from an external data generating api<br />
+  - Random age group<br />
+  - Random selection of Who, What, When, Where, Why or How<br />
+  - Magic 8-ball with 20 possible sayings
+- Social (Other users help decide which item on your list of ideas or options is best)
+  - Voting (With graphical representation)
+  - Comments (To provide more detailed feedback on list items)
 
-Buttons than generate random information<br />
--> Random Wiki link from external wikimedia api<br />
--> Random news headline from external newsApi<br />
--> Random topic<br />
--> Random word from a random word generating external api<br />
--> Random name from an external data generating api<br />
--> Random age group<br />
--> Random selection of Who, What, When, Where, Why or How<br />
--> Magic 8-ball with 20 possible sayings in an array for now
-
-Layout uses styled-components
+## Tech
+- Layout uses styled-components
+- react-chartjs-2 for displaying voting results
+- react-hook-form for various user inputs
+- date-fns for timestamps and more
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
@@ -27,11 +39,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
 
@@ -59,18 +66,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
 ### Advanced Configuration
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
@@ -78,7 +73,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 ### Deployment
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
