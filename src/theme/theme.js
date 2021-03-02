@@ -1,4 +1,4 @@
-export default {
+const Theme = {
   colors: {
     main: '#37474f',
     dark: '#263238',
@@ -15,3 +15,5 @@ export default {
     button: '1.2rem',
   },
 };
+
+export default Theme;
