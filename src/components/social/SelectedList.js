@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Comments from '../shared/Comments';
 import { MainHeading } from '../styled/AppStyles';
 import { ListHolder } from '../styled/ListStyles';
@@ -13,7 +13,7 @@ const List = ({ match }) => {
   const [count, setCount] = useState(0);
   const [list, setList] = useState([]);
   let { id } = useParams();
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchList = async () => {
@@ -35,7 +35,7 @@ const List = ({ match }) => {
   };
 
   const handleClick = () => {
-    history.goBack();
+    navigate(-1);
   };
 
   if (!isLoading && list?.five) {

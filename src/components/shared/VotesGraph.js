@@ -1,5 +1,9 @@
 import React from 'react';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
+
 import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const VotesGraph = ({ results }) => {
   const data = {
@@ -26,7 +30,6 @@ const VotesGraph = ({ results }) => {
         hoverBorderColor: 'rgba(255,99,132,1)',
         barPercentage: 0.6,
         data: results,
-        // data: [3, 3, 5, 170, 1],
       },
     ],
   };
@@ -36,26 +39,10 @@ const VotesGraph = ({ results }) => {
         data={data}
         width={100}
         height={50}
-        tooltips={false}
         options={{
           maintainAspectRatio: true,
           responsive: true,
-          legend: {
-            display: false,
-          },
-          scales: {
-            yAxes: [
-              {
-                offset: true,
-                // ticks: {
-                //   beginAtZero: true,
-                //   min: 0,
-                //   max: 20,
-                //   stepSize: 2,
-                // },
-              },
-            ],
-          },
+          scales: { y: { offset: true } },
         }}
       />
     </div>

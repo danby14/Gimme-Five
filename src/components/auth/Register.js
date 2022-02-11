@@ -11,7 +11,11 @@ const Register = ({ swapForms }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async data => {
     setIsLoading(true);
@@ -45,14 +49,13 @@ const Register = ({ swapForms }) => {
           <label htmlFor='username'>Username</label>
           <div>
             <input
-              name='username'
               type='text'
-              ref={register({
+              {...register('username', {
                 required: 'Please Enter a Valid Username',
                 maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
-            <p className='error'>{errors.username && errors.username.message}</p>
+            <p className='error'>{errors.username?.message}</p>
           </div>
         </div>
 
@@ -60,11 +63,10 @@ const Register = ({ swapForms }) => {
           <label htmlFor='email'>Email</label>
           <div>
             <input
-              name='email'
               type='email'
-              ref={register({ required: 'Please Enter a Valid Email' })}
+              {...register('email', { required: 'Please Enter a Valid Email' })}
             />
-            <p className='error'>{errors.email && errors.email.message}</p>
+            <p className='error'>{errors.email?.message}</p>
           </div>
         </div>
 
@@ -72,20 +74,19 @@ const Register = ({ swapForms }) => {
           <label htmlFor='password'>Password</label>
           <div>
             <input
-              name='password'
               type='password'
-              ref={register({
+              {...register('password', {
                 required: 'Please Enter a Valid Password',
                 minLength: { value: 6, message: 'miniumum of 6 characters' },
               })}
             />
-            <p className='error'>{errors.password && errors.password.message}</p>
+            <p className='error'>{errors.password?.message}</p>
           </div>
         </div>
 
         <div>
           <label htmlFor='opt_in'>Opt-in to future newsletters</label>
-          <Checkbox placeholder='opt_in' name='opt_in' ref={register} />
+          <Checkbox placeholder='opt_in' {...register('opt-in')} />
         </div>
 
         <div>

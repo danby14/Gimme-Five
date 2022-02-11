@@ -16,7 +16,7 @@ export const Container = styled.div`
 
   textarea {
     padding: 0.5rem;
-    height: 2.5rem;
+    height: 2.8rem;
     font-size: 1.4rem;
     width: 100%;
     @media only screen and (min-width: 992px) {

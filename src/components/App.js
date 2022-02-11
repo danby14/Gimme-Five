@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { Container, Row, Col } from './styled/Grid';
 import { AppContainer, MainContainer } from './styled/AppStyles';
@@ -12,6 +12,7 @@ import MyFives from './my-fives/MyFives';
 import ViewAllLists from './social/ViewAllLists';
 import SelectedList from './social/SelectedList';
 import Account from './account/Account';
+import Social from './social/Social';
 
 let logoutTimer;
 
@@ -70,38 +71,30 @@ function App() {
   if (!isLoading) {
     if (token) {
       routes = (
-        <Switch>
-          <Route path='/' exact component={GimmeFive} />
-          <Route path='/myfives' component={MyFives} />
-          <Route
-            path='/social'
-            render={({ match: { url } }) => (
-              <>
-                <Route path={`${url}/`} component={ViewAllLists} exact />
-                <Route path={`${url}/:id`} component={SelectedList} />
-              </>
-            )}
-          />
-          <Route path='/account' component={Account} />
-          <Redirect to='/' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<GimmeFive />} />
+          <Route path='/myfives' element={<MyFives />} />
+          <Route path='social' element={<Social />}>
+            <Route index element={<ViewAllLists />} />
+            <Route path='' element={<ViewAllLists />} />
+            <Route path=':id' element={<SelectedList />} />
+          </Route>
+          <Route path='account' element={<Account />} />
+          <Route path='*' element={<Navigate replace to='/' />} />
+        </Routes>
       );
     } else {
       routes = (
-        <Switch>
-          <Route path='/' exact component={GimmeFive} />
-          <Route
-            path='/social'
-            render={({ match: { url } }) => (
-              <>
-                <Route path={`${url}/`} component={ViewAllLists} exact />
-                <Route path={`${url}/:id`} component={SelectedList} />
-              </>
-            )}
-          />
-          <Route path='/auth' exact component={Auth} />
-          <Redirect to='/' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<GimmeFive />} />
+          <Route path='social' element={<Social />}>
+            <Route index element={<ViewAllLists />} />
+            <Route path='' element={<ViewAllLists />} />
+            <Route path=':id' element={<SelectedList />} />
+          </Route>
+          <Route path='auth' element={<Auth />} />
+          <Route path='*' element={<Navigate replace to='/' />} />
+        </Routes>
       );
     }
   }

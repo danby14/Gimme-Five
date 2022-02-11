@@ -30,7 +30,11 @@ const AddComment = ({ listId, update }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showModal, setShowModal] = useState(false);
   const onSubmit = async data => {
     data.commentor_id = auth.userId;
@@ -86,15 +90,14 @@ const AddComment = ({ listId, update }) => {
         }
       >
         <textarea
-          name='comment'
           type='text'
-          ref={register({
+          {...register('comment', {
             required: 'Please Enter a Comment',
             minLength: { value: 5, message: 'Min of 5 characters' },
             maxLength: { value: 200, message: 'Max of 200 characters' },
           })}
         />
-        <ErrorText>{errors.comment && errors.comment.message}</ErrorText>
+        <ErrorText>{errors.comment?.message}</ErrorText>
         {error && <ErrorText>{error}</ErrorText>}
       </Modal>
       {auth.userId && <button onClick={modalViewer}>Add Comment</button>}

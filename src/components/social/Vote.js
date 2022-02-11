@@ -80,11 +80,16 @@ const Vote = ({ listId, votes, update }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='vote'>Choose your favorite (can only vote once)</label>
           <div>
-            1<input name='vote' type='radio' value='1' ref={register({ required: true })} />
-            2<input name='vote' type='radio' value='2' ref={register({ required: true })} />
-            3<input name='vote' type='radio' value='3' ref={register({ required: true })} />
-            4<input name='vote' type='radio' value='4' ref={register({ required: true })} />
-            5<input name='vote' type='radio' value='5' ref={register({ required: true })} />
+            1
+            <input type='radio' value='1' {...register('vote', { required: true })} />
+            2
+            <input type='radio' value='2' {...register('vote', { required: true })} />
+            3
+            <input type='radio' value='3' {...register('vote', { required: true })} />
+            4
+            <input type='radio' value='4' {...register('vote', { required: true })} />
+            5
+            <input type='radio' value='5' {...register('vote', { required: true })} />
           </div>
           {error && <p className='err'>{error.message}</p>}
           <div>

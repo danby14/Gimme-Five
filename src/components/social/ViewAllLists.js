@@ -62,7 +62,7 @@ const ViewAllLists = ({ match }) => {
         lists &&
         lists.map(list => (
           <div key={list.id}>
-            <Link2 to={`${match.url}/${list.id}`}>
+            <Link2 to={`${list.id}`}>
               <TitleCard list={list} />
             </Link2>
           </div>

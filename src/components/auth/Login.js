@@ -11,7 +11,11 @@ const Login = ({ swapForms }) => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async data => {
     setIsLoading(true);
@@ -46,12 +50,11 @@ const Login = ({ swapForms }) => {
             <label htmlFor='email'>Email</label>
             <div>
               <input
-                name='email'
                 type='email'
                 placeholder='Enter your email'
-                ref={register({ required: 'Please Enter a Valid Email' })}
+                {...register('email', { required: 'Please Enter a Valid Email' })}
               />
-              <p className='error'>{errors.email && errors.email.message}</p>
+              <p className='error'>{errors.email?.message}</p>
             </div>
           </div>
 
@@ -59,15 +62,14 @@ const Login = ({ swapForms }) => {
             <label htmlFor='password'>Password</label>
             <div>
               <input
-                name='password'
                 type='password'
                 placeholder='Password'
-                ref={register({
+                {...register('password', {
                   required: 'Please Enter a Valid Password',
                   minLength: { value: 6, message: 'miniumum of 6 characters' },
                 })}
               />
-              <p className='error'>{errors.password && errors.password.message}</p>
+              <p className='error'>{errors.password?.message} </p>
             </div>
           </div>
 

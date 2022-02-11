@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocal } from '../../hooks/custom';
 
 import { AuthContext } from '../context/auth-context';
@@ -24,7 +24,7 @@ const ListOfFive = () => {
   const [disabled, setDisabled] = useState(false);
 
   let userId = auth.userId;
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const openEditor = i => {
     setEditModal(true);
@@ -88,7 +88,7 @@ const ListOfFive = () => {
       setThoughts([]);
       setIsLoading(false);
       closeSubmitter();
-      history.push('/myfives');
+      navigate('/myfives');
     } catch (err) {
       setDisabled(true);
       setIsLoading(false);
